@@ -1,0 +1,62 @@
+origin_state,origin_city,num_flights,type,counties,population,latitude,longitude
+AK,Anchorage,7700,Municipality,Anchorage,291247,61.218,-149.885
+AZ,Phoenix,89720,City,Maricopa,1608139,33.448,-112.074
+AZ,Tucson,10990,City,Pima,542629,32.222,-110.973
+CA,Burbank,14170,City,Los Angeles,107337,34.182,-118.31
+CA,Long Beach,8166,City,Los Angeles,466742,33.768,-118.192
+CA,Los Angeles,117714,City,Los Angeles,3898747,34.052,-118.243
+CA,Oakland,25178,City,Alameda,440646,37.804,-122.271
+CA,Ontario,12370,City,San Bernardino,175265,34.063,-117.651
+CA,Sacramento,24930,City,Sacramento,524943,38.577,-121.496
+CA,San Diego,45351,City,San Diego,1386932,32.716,-117.165
+CA,San Francisco,84276,City,San Francisco,873965,37.78,-122.414
+CA,San Jose,24310,City,Santa Clara,1013240,37.336,-121.891
+CA,Santa Ana,23581,City,Orange,310227,33.745,-117.868
+CO,Denver,97259,City,Denver,715522,39.739,-104.987
+CT,Hartford,13042,Town,Hartford,121054,41.761,-72.689
+DC,Washington,80536,City,District of Columbia,689545,38.895,-77.036
+FL,Fort Lauderdale,34858,City,Broward,182760,26.119,-80.143
+FL,Fort Myers,12456,City,Lee,86395,26.643,-81.87
+FL,Jacksonville,14654,City,Duval,949611,30.328,-81.657
+FL,Miami,41948,City,Miami-Dade,442241,25.774,-80.192
+FL,Orlando,58983,City,Orange,307573,28.543,-81.378
+FL,Tampa,35149,City,Hillsborough,384959,27.949,-82.458
+GA,Atlanta,148563,City,DeKalb;Fulton,498715,33.749,-84.39
+HI,Honolulu,17049,Census-Designated Place,Honolulu,350964,21.306,-157.86
+HI,Kahului,11346,Census-Designated Place,Maui,28219,20.891,-156.467
+IL,Chicago,176939,City,Cook;DuPage,2746388,41.882,-87.628
+IN,Indianapolis,18038,City,Marion,887642,39.769,-86.158
+KY,Louisville,10915,Metro Government,Jefferson,633045,38.257,-85.757
+LA,New Orleans,25184,City,Orleans,383997,29.957,-90.063
+MA,Boston,66699,City,Suffolk,675647,42.359,-71.057
+MD,Baltimore,51761,City,Baltimore City,585708,39.289,-76.615
+MI,Detroit,62584,City,Wayne,639111,42.332,-83.047
+MN,Minneapolis,60174,City,Hennepin,429954,44.977,-93.272
+MO,Kansas City,30509,City,Clay;Platte;Jackson;Cass,508090,39.104,-94.583
+NC,Charlotte,76465,City,Mecklenburg,874579,35.227,-80.843
+NE,Omaha,13487,City,Douglas,486051,41.26,-95.94
+NJ,Newark,64313,City,Essex,311549,40.736,-74.172
+NM,Albuquerque,17542,City,Bernalillo,564559,35.084,-106.652
+NV,Las Vegas,77878,City,Clark,641903,36.171,-115.144
+NV,Reno,10344,City,Washoe,264165,39.529,-119.814
+NY,Buffalo,14797,City,Erie,278349,42.886,-78.878
+NY,New York,118026,City,Bronx;Richmond;New York;Kings;Queens,8804190,40.714,-74.007
+OH,Cincinnati,23975,City,Hamilton,309317,39.105,-84.514
+OH,Cleveland,25191,City,Cuyahoga,372624,41.5,-81.694
+OH,Columbus,17223,City,Delaware;Franklin;Fairfield,905748,39.962,-83.001
+OK,Oklahoma City,13922,City,Canadian;Cleveland;Oklahoma,681054,35.468,-97.516
+OR,Portland,30484,City,Multnomah;Clackamas;Washington,652503,45.519,-122.679
+PA,Philadelphia,47446,City,Philadelphia,1603797,39.952,-75.164
+PA,Pittsburgh,20511,City,Allegheny,302971,40.441,-80.003
+RI,Providence,9313,City,Providence,190934,41.824,-71.413
+TN,Memphis,18657,City,Shelby,633104,35.146,-90.052
+TN,Nashville,34757,Metro Government,Davidson,689447,36.164,-86.783
+TX,Austin,26982,City,Williamson;Travis;Hays,961855,30.268,-97.743
+TX,Dallas,19062,City,Rockwall;Denton;Kaufman;Dallas;Collin,1304379,32.781,-96.797
+TX,Houston,102309,City,Harris;Fort Bend;Montgomery,2304580,29.76,-95.363
+TX,San Antonio,22880,City,Bexar,1434625,29.423,-98.49
+UT,Salt Lake City,47324,City,Salt Lake,199723,40.769,-111.891
+VA,Norfolk,10006,City,Norfolk,238005,36.848,-76.292
+VA,Richmond,11485,City,Richmond (city),226610,37.546,-77.453
+WA,Seattle,60172,City,King,737015,47.607,-122.338
+WI,Milwaukee,21002,City,Milwaukee,577222,43.042,-87.905
