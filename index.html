@@ -1,0 +1,47 @@
+<head>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
+  <h1>Project 1</h1>
+  <style>
+    .state {
+      fill: darkgray;
+    }
+  </style>
+</head>
+
+<body>
+  <svg
+    id="usMap"
+    height="600"
+    width="900"
+    style="background: black; margin-top: 50px"
+  ></svg>
+  <script>
+    const svg = d3.select("#usMap");
+    const width = svg.attr("width");
+    const height = svg.attr("height");
+    const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+    const mapWidth = width - margin.left - margin.right;
+    const mapHeight = height - margin.top - margin.bottom;
+    const map = svg
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    const requestData = async function () {
+      const us = await d3.json("./data/us-smaller.json");
+      console.log(us);
+      var states = topojson.feature(us, us.objects.states); // List of state outlines to fill
+      var statesMesh = topojson.mesh(us, us.objects.states); // 'Mesh' of all outlines put together for a stroke
+      var projection = d3.geoAlbersUsa().fitSize([mapWidth, mapHeight], states);
+      var path = d3.geoPath().projection(projection);
+
+      map
+        .selectAll("path.state")
+        .data(states.features)
+        .join("path")
+        .attr("class", "state")
+        .attr("d", path);
+    };
+    requestData();
+  </script>
+</body>
