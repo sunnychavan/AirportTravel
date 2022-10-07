@@ -4,9 +4,24 @@
   <script src="https://d3js.org/topojson.v3.min.js"></script>
   <h1>Project 1</h1>
   <style>
-    .state {
-      fill: darkgray;
+
+    .graticule{
+      fill: none;
+      stroke: grey;
+      stroke-width: 2px;
+      opacity: 0.5;
     }
+    .state {
+      fill: #3a3a3a;
+      opacity: 1;
+    }
+    .outline{
+      fill: none;
+      stroke:black;
+      stroke-width: 0.5px;
+    }
+
+
   </style>
 </head>
 
@@ -30,42 +45,29 @@
 
     const requestData = async function () {
       const us = await d3.json("./data/us-in-place.topojson");
-      // console.log(us);
       var states = topojson.feature(us, us["objects"]["us-in-place"]); // List of state outlines to fill
-      // var statesMesh = topojson.mesh(us, us.objects.states); // 'Mesh' of all outlines put together for a stroke
-      var projection = d3.geoAlbers().scale(300)
-        .fitSize([mapWidth, mapHeight], states);
+      var statesMesh = topojson.mesh(us, us["objects"]["us-in-place"]); // 'Mesh' of all outlines put together for a stroke
+      var projection = d3.geoAlbers().scale(300).fitSize([mapWidth, mapHeight], states);
       var path = d3.geoPath().projection(projection);
 
-      map
-        .selectAll("path.state")
+      let graticule = d3.geoGraticule10();
+      
+      map.append("path").attr("class", "graticule").attr("d", path(graticule));
+
+      map.selectAll("path.state")
         .data(states.features)
         .join("path")
         .attr("class", "state")
         .attr("d", path);
-      // svg
-      //   .append("circle")
-      //   .attr("r", 30)
-      //   .attr("transform", function () {
-      //     return "translate(" + projection([-75, 43]) + ")";
-      //   })
-      //   .attr("fill", "red");
+
+      map.append("path").datum(statesMesh)
+        .attr("class", "outline")
+        .attr("d", path)
+  
+
+     
       const cities = await d3.csv("./data/map_data.csv", d3.autoType);
       console.log(cities);
-
-      let count = 0;
-      cities.forEach((element) => {
-        if (
-          projection([element.origin_longitude, element.origin_latitude]) ==
-          null
-        ) {
-          count = count + 1;
-          // console.log(element.origin_state);
-        }
-      });
-      // console.log("HERE IS THE NUMBER OF LONG COUNT", count);
-
-      // console.log(projection([35.0324, -106.3242]));
 
       const numFlightsExtent = d3.extent(cities, (d) => d["num_flights"]);
       const opacityScale = d3
@@ -73,15 +75,7 @@
         .domain(numFlightsExtent)
         .range([0, 0.8]);
 
-      const strokeScale = d3.scalePow().domain(numFlightsExtent).range([1, 6]);
-
-      let colorScale = d3
-        .scaleLinear()
-        .domain(numFlightsExtent)
-        .range([d3.rgb("#a008f2"), d3.rgb("#a008f2")])
-        .interpolate(d3.interpolateHcl);
-
-      map
+        map
         .selectAll("line")
         .data(cities)
         .join("line")
@@ -95,26 +89,17 @@
         )
         .attr("x2", (d) => projection([d.dest_longitude, d.dest_latitude])[0])
         .attr("y2", (d) => projection([d.dest_longitude, d.dest_latitude])[1])
-        .attr("stroke", (d) => colorScale(d["num_flights"]))
-        .attr("stroke-width", (d) => strokeScale(d["num_flights"]))
-        .attr("opacity", (d) => opacityScale(d["num_flights"]));
-      // .attr("transform", function (d) {
-      //   if (projection([d.origin_longitude, d.origin_latitude]) == null) {
-      //     console.log(d);
-      //   }
-      //   return (
-      //     "translate(" +
-      //     projection([d.origin_longitude, d.origin_latitude]) +
-      //     ")"
-      //   );
-      // });
+        .attr("stroke", "#336cfe")
+        .attr("stroke-width", 1)
+        .attr("opacity", (d) => opacityScale(d["num_flights"]))
+
       map
         .selectAll("circle")
         .data(cities)
         .join("circle")
-        .attr("r", 5)
+        .attr("r", 1)
         .attr("fill", "#fff")
-        .attr("opacity", 0.2)
+        .attr("opacity", 0.1)
         .attr("transform", function (d) {
           if (projection([d.origin_longitude, d.origin_latitude]) == null) {
             console.log(d);
@@ -126,20 +111,10 @@
           );
         });
 
-      // map
-      //   .selectAll("rect")
-      //   .data(cities)
-      //   .join("rect")
-      //   .attr("x", 0)
-      //   .attr("y", 0)
-      //   .attr("width", 4)
-      //   .attr("height", 4)
-      //   .attr("fill", "green")
-      //   .attr("transform", function (d) {
-      //     return (
-      //       "translate(" + projection([d.dest_longitude, d.dest_latitude]) + ")"
-      //     );
-      //   });
+        
+
+
+
     };
     requestData();
   </script>
