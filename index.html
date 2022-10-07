@@ -1,47 +1,137 @@
+<!DOCTYPE html>
 <head>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
-  <h1>Project 1</h1>
-  <style>
-    .state {
-      fill: darkgray;
-    }
-  </style>
+  <title>Project 1</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
-  <svg
-    id="usMap"
-    height="600"
-    width="900"
-    style="background: black; margin-top: 50px"
-  ></svg>
-  <script>
-    const svg = d3.select("#usMap");
-    const width = svg.attr("width");
-    const height = svg.attr("height");
-    const margin = { top: 20, right: 20, bottom: 20, left: 20 };
-    const mapWidth = width - margin.left - margin.right;
-    const mapHeight = height - margin.top - margin.bottom;
-    const map = svg
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  <div>
+    <h1>Project 1: Airplane Travel throughout the US</h1>
+    <div>
+      <h2>The geographic study of flight volume by route.</h2>
+      <p>
+        In an effort to better understand the distribution of flights throughout
+        the United States, we plotted the routes of 2.7 million flights on a
+        map, denoting the origin & destination airports.
+      </p>
+      <svg id="usMap" height="500" width="900" class="graph"></svg>
+      <p>
+        We particularly noticed the role of airports in cities like NYC, LA,
+        Chicago, and Atlanta as "hubs" from which other flights depart. In
+        addition, most airports on the extremities of the United States are
+        served primarily by only one or two airports: eg. most flights to San
+        Juan in Puerto Rico are from New York.
+      </p>
+      <script>
+        const svg = d3.select("#usMap");
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        const mapWidth = width - margin.left - margin.right;
+        const mapHeight = height - margin.top - margin.bottom;
 
-    const requestData = async function () {
-      const us = await d3.json("./data/us-smaller.json");
-      console.log(us);
-      var states = topojson.feature(us, us.objects.states); // List of state outlines to fill
-      var statesMesh = topojson.mesh(us, us.objects.states); // 'Mesh' of all outlines put together for a stroke
-      var projection = d3.geoAlbersUsa().fitSize([mapWidth, mapHeight], states);
-      var path = d3.geoPath().projection(projection);
+        const mapAdjScale = 1.2;
+        const mapAdjLeft = -22;
+        const mapAdjTop = -40;
 
-      map
-        .selectAll("path.state")
-        .data(states.features)
-        .join("path")
-        .attr("class", "state")
-        .attr("d", path);
-    };
-    requestData();
-  </script>
+        const map = svg
+          .append("g")
+          .attr(
+            "transform",
+            "translate(" + margin.left + "," + margin.top + ")"
+          );
+
+        const requestData = async function () {
+          const us = await d3.json("./data/us-in-place.topojson");
+          var states = topojson.feature(us, us["objects"]["us-in-place"]); // List of state outlines to fill
+          var statesMesh = topojson.mesh(us, us["objects"]["us-in-place"]); // 'Mesh' of all outlines put together for a stroke
+          var projection = d3
+            .geoAlbers()
+            .fitSize([mapWidth, mapHeight], states);
+
+          // scale adjustments
+          let currScale = projection.scale();
+          projection.scale(mapAdjScale * currScale);
+
+          // translation adjustments
+          let currOffset = projection.translate();
+          console.log(currOffset);
+          projection.translate([
+            currOffset[0] + mapAdjLeft,
+            currOffset[1] + mapAdjTop,
+          ]);
+
+          var path = d3.geoPath().projection(projection);
+          let graticule = d3.geoGraticule10();
+
+          map
+            .append("path")
+            .attr("class", "graticule")
+            .attr("d", path(graticule));
+
+          map
+            .selectAll("path.state")
+            .data(states.features)
+            .join("path")
+            .attr("class", "state")
+            .attr("d", path);
+
+          map
+            .append("path")
+            .datum(statesMesh)
+            .attr("class", "outline")
+            .attr("d", path);
+
+          const cities = await d3.csv("./data/map_data.csv", d3.autoType);
+          console.log(cities);
+
+          const numFlightsExtent = d3.extent(cities, (d) => d["num_flights"]);
+          const opacityScale = d3
+            .scalePow()
+            .domain(numFlightsExtent)
+            .range([0, 0.8]);
+
+          map
+            .selectAll("line")
+            .data(cities)
+            .join("line")
+            .attr("class", "flightLines")
+            .attr(
+              "x1",
+              (d) => projection([d.origin_longitude, d.origin_latitude])[0]
+            )
+            .attr(
+              "y1",
+              (d) => projection([d.origin_longitude, d.origin_latitude])[1]
+            )
+            .attr(
+              "x2",
+              (d) => projection([d.dest_longitude, d.dest_latitude])[0]
+            )
+            .attr(
+              "y2",
+              (d) => projection([d.dest_longitude, d.dest_latitude])[1]
+            )
+            .attr("opacity", (d) => opacityScale(d["num_flights"]));
+
+          map
+            .selectAll("circle")
+            .data(cities)
+            .join("circle")
+            .attr("r", 1.5)
+            .attr("class", "cities")
+            .attr("transform", function (d) {
+              return (
+                "translate(" +
+                projection([d.origin_longitude, d.origin_latitude]) +
+                ")"
+              );
+            });
+        };
+        requestData();
+      </script>
+    </div>
+  </div>
 </body>
