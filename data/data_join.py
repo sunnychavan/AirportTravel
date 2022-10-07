@@ -40,6 +40,7 @@ def add_city_details(df):
 
 
 def flight_throughput(df):
+    print(df.columns)
     result = df.groupby(["origin_state", "origin_city"]).sum()
 
     return result
@@ -66,7 +67,7 @@ if __name__ == "__main__":
     named = substitute_names(agg_flts)
     map_data = add_city_details(named)
 
-    throughput = flight_throughput(named)
+    throughput = flight_throughput(map_data)
     scatter_data = add_city_popu(throughput)
 
     map_data.to_csv("map_data.csv")
