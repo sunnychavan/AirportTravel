@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+body {
+  font-family: "PT Serif", serif;
+  display: flex;
+  justify-content: center;
+
+  --accent-color: #ff63d8;
+}
+
+body > div {
+  width: 900px;
+  /* justify-content: center; */
+  text-align: center;
+  /* width: clamp(900px, 50%, 1100px) */
+
+  /* --accent-color: rgb(15, 20, 230); */
+}
+
+h2 {
+  font-style: italic;
+  text-align: left;
+}
+
+p {
+  text-align: left;
+}
+
+.graph {
+  border: 2px solid black;
+  background-color: lightgray;
+}
+
+.graph .graticule {
+  fill: none;
+  stroke: grey;
+  stroke-width: 2px;
+  opacity: 0.4;
+}
+
+.graph .outline {
+  /* fill: black; */
+  stroke: lightgray;
+  stroke-width: 0.5px;
+}
+
+.graph .cities {
+  fill: white;
+  opacity: 0.1;
+}
+
+.graph .flightLines {
+  stroke: var(--accent-color);
+  stroke-width: 1;
+}
