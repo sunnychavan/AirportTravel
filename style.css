@@ -17,6 +17,14 @@ body > div {
   /* --accent-color: rgb(15, 20, 230); */
 }
 
+h1 {
+  padding: 10px 0px;
+
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color);
+  text-decoration-thickness: 5px;
+}
+
 h2 {
   font-style: italic;
   text-align: left;
