@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <head>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
@@ -28,11 +29,12 @@
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     const requestData = async function () {
-      const us = await d3.json("./data/us-smaller.json");
+      const us = await d3.json("./data/us-in-place.topojson");
       // console.log(us);
-      var states = topojson.feature(us, us.objects.states); // List of state outlines to fill
-      var statesMesh = topojson.mesh(us, us.objects.states); // 'Mesh' of all outlines put together for a stroke
-      var projection = d3.geoAlbersUsa().fitSize([mapWidth, mapHeight], states);
+      var states = topojson.feature(us, us["objects"]["us-in-place"]); // List of state outlines to fill
+      // var statesMesh = topojson.mesh(us, us.objects.states); // 'Mesh' of all outlines put together for a stroke
+      var projection = d3.geoAlbers().scale(300)
+        .fitSize([mapWidth, mapHeight], states);
       var path = d3.geoPath().projection(projection);
 
       map

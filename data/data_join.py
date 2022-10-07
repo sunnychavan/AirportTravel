@@ -25,7 +25,7 @@ def substitute_names(df):
 
 def add_city_details(df):
     city_df = pd.read_csv("cities.csv")
-    city_df = city_df[city_df["state"] != "PR"]
+    # city_df = city_df[city_df["state"] != "PR"]
 
     result = df.join(
         city_df.set_index(["state", "city"]).add_prefix("origin_"),
