@@ -3,31 +3,32 @@
 body {
   font-family: "PT Serif", serif;
   display: flex;
-  justify-content: center;
 
   --accent-color: #ff63d8;
 }
 
 body > div {
+  margin: 0 auto;
   width: 900px;
-  /* justify-content: center; */
   text-align: center;
-  /* width: clamp(900px, 50%, 1100px) */
-
-  /* --accent-color: rgb(15, 20, 230); */
 }
 
 h1 {
-  padding: 10px 0px;
-
-  text-decoration: underline;
-  text-decoration-color: var(--accent-color);
-  text-decoration-thickness: 5px;
+  margin-top: 20px;
+  margin-bottom: -10px;
+  font-size: 3em;
+  text-decoration: underline 0.125em var(--accent-color);
 }
 
 h2 {
+  text-decoration: underline 0.125em var(--accent-color);
+  padding-top: 10px;
   font-style: italic;
   text-align: left;
+}
+
+h4 {
+  font-weight: normal;
 }
 
 p {
@@ -47,7 +48,6 @@ p {
 }
 
 .graph .outline {
-  /* fill: black; */
   stroke: lightgray;
   stroke-width: 0.5px;
 }
@@ -60,4 +60,28 @@ p {
 .graph .flightLines {
   stroke: var(--accent-color);
   stroke-width: 1;
+}
+
+.graph .points {
+  stroke: black;
+  stroke-width: 1.5;
+  fill: var(--accent-color);
+  opacity: 0.8;
+}
+
+.graph .pointLabels {
+  font-size: 0.85em;
+  position: relative;
+  /* top: 50%; */
+  /* transform-origin: top left; */
+  transform: translate(7px, 0.25em);
+}
+
+.graph .gridlines line {
+  stroke: grey;
+  opacity: 0.4;
+}
+
+.graph .gridlines .domain {
+  stroke: none;
 }
