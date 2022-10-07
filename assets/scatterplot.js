@@ -105,6 +105,8 @@ d3.csv("./data/scatter_data.csv").then(
         .attr("y", yScale(d[dataYCol]))
         .attr("class", "pointLabels");
     });
+
+    chartArea.raise();
   },
   (error) => {
     console.log("unable to load the scatter dataset json file");
