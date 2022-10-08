@@ -72,7 +72,7 @@ d3.csv("./data/scatter_data.csv").then(
 
     labels
       .append("text")
-      .text("Flight Traffic (inbound + outbound)")
+      .text("Outbound Flight Traffic")
       .attr("transform-origin", "middle")
       .attr("transform", function (d) {
         return (
@@ -83,7 +83,6 @@ d3.csv("./data/scatter_data.csv").then(
       });
 
     data.forEach((d) => {
-      console.log(d);
       let group = chartArea.append("g");
       group
         .append("circle")
@@ -98,7 +97,6 @@ d3.csv("./data/scatter_data.csv").then(
           if (showLabel(d)) {
             result = d["origin_city"];
           }
-          console.log(result);
           return result;
         })
         .attr("x", xScale(d[dataXCol]))

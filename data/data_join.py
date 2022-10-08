@@ -40,7 +40,6 @@ def add_city_details(df):
 
 
 def flight_throughput(df):
-    print(df.columns)
     result = df.groupby(["origin_state", "origin_city"]).sum()
 
     return result
